@@ -15,9 +15,11 @@ avr-base: avr-base/.done
 
 avr-base/.done: avr-base/Dockerfile
 	docker build -t raphaelmeyer/avr-base avr-base
+	touch $@
 
-avr-sdk/.done: avr-sdk/Dockerfile
+avr-sdk/.done: avr-base avr-sdk/Dockerfile
 	docker build -t raphaelmeyer/avr-sdk avr-sdk
+	touch $@
 
 ################################################################################
 
