@@ -5,6 +5,9 @@ MAINTAINER Raphael Meyer <raphael.meyer@bbv.ch>
 USER root
 
 RUN apt-get update && apt-get install -y \
+  avr-libc \
+  avrdude \
+  gdb \
   gcc-avr \
   cmake \
   make
