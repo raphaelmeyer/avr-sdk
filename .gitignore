@@ -1,6 +1,5 @@
-# vim
-*.swp
+/avr-sdk/.done
 
-#
-.done
+# vim, clion etc
+*.swp
 
