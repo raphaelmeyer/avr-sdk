@@ -15,8 +15,8 @@ avr-sdk/.done: avr-sdk/Dockerfile
 ################################################################################
 
 sdk-release: check-tag avr-sdk
-	echo docker tag raphaelmeyer/avr-sdk raphaelmeyer/avr-sdk:$(tag)
-	echo docker push raphaelmeyer/avr-sdk:$(tag)
+	docker tag raphaelmeyer/avr-sdk raphaelmeyer/avr-sdk:$(tag)
+	docker push raphaelmeyer/avr-sdk:$(tag)
 
 check-tag:
 ifndef tag
