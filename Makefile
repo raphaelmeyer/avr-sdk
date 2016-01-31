@@ -2,32 +2,32 @@
 
 all: avr-sdk
 
-################################################################################
-
-makepath = $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-
-################################################################################
-
 avr-sdk: avr-sdk/.done
-avr-base: avr-base/.done
+release: sdk-release
 
 ################################################################################
 
-avr-base/.done: avr-base/Dockerfile
-	docker build -t raphaelmeyer/avr-base avr-base
-	touch $@
-
-avr-sdk/.done: avr-base avr-sdk/Dockerfile
+avr-sdk/.done: avr-sdk/Dockerfile
+	-docker rmi raphaelmeyer/avr-sdk
 	docker build -t raphaelmeyer/avr-sdk avr-sdk
 	touch $@
 
 ################################################################################
 
+sdk-release: check-tag avr-sdk
+	echo docker tag raphaelmeyer/avr-sdk raphaelmeyer/avr-sdk:$(tag)
+	echo docker push raphaelmeyer/avr-sdk:$(tag)
+
+check-tag:
+ifndef tag
+	$(error "Must specify a tag with make release tag=TAG")
+endif
+
+################################################################################
+
 clean:
-	-docker rmi raphaelmeyer/avr-sdk
 	rm -rf avr-sdk/.done
-	-docker rmi raphaelmeyer/avr-base
-	rm -rf avr-base/.done
+	-docker rmi raphaelmeyer/avr-sdk
 
 .PHONY: clean
 
